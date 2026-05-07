@@ -1,0 +1,23 @@
+def lambda_handler(event, context):
+    print("Event Triggered:", json.dumps(event))
+
+    for record in event['Records']:
+        bucket = record['s3']['bucket']['name']
+        file_name = record['s3']['object']['key']
+
+        print(f"File uploaded: {file_name} in bucket: {bucket}")
+
+    return {
+        'statusCode': 200,
+        'body': 'S3 Trigger Executed Successfully'
+    }
+
+
+
+def lambda_handler(event, context):
+    name = event.get('queryStringParameters', {}).get('name', 'Guest')
+
+    return {
+        'statusCode': 200,
+        'body': f"Hello, {name}! Welcome to Lambda HTTP trigger."
+    }
